@@ -1,7 +1,7 @@
 ## Professional Portfolio
 
 The following are samples of work I created and contributed to the [cPanel & WHM](https://www.cpanel.net) product:
-#### cPanel Linked Nodes Guide
+### cPanel Linked Nodes Guide
 
 * [URL](https://docs.cpanel.net/knowledge-base/general-systems-administration/cpanel-linked-nodes-guide/)
 * [Markdown](https://github.com/ashleykinard/samples/blob/origin/cPanel-LinkedNodesGuide)
