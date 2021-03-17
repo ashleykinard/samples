@@ -1,0 +1,113 @@
+## Overview
+
+cPanel linked nodes are two or more servers (nodes) connected to each other via WHM's [*Link Server Nodes*](/whm/server-configuration/link-server-nodes) interface (*WHM >> Home >> Server Configuration >> Link Server Nodes*). This feature lets you optimize your primary ([parent node](#parent-and-child-nodes)) node's resource usage by distributing functionality across multiple nodes.
+
+For example, you can assign a cPanel account's mail functionality to a secondary server ([child node](#parent-and-child-nodes)) optimized for mail. As a result, your primary node's resource usage is lower. This helps optimize the user experience for non-mail services, such as web hosting.
+
+## Server profiles
+
+One way you can optimize your child nodes is to set a server profile. To do this, you can configure a node's profile directly in WHM's [*Server Profile*](/whm/server-configuration/server-profile) interface (*WHM >> Home >> Server Configuration >> Server Profile*).
+
+{{% callout type="info" header="Note:" %}}
+The parent node in a linked node configuration only uses a [Standard Node](/whm/server-configuration/server-profile#starndard-node) profile. A parent node **cannot** use any other server profile.
+{{% /callout %}}
+
+For information about server profiles, read our [How to Use Server Profiles](/knowledge-base/general-systems-administration/how-to-use-server-profiles) documentation.
+
+## Parent and child nodes
+
+Linking nodes together creates a "parent and child" node configuration. For example:
+
+![A visual representation of a linked node configuration.](/img/linked-node-example.png)
+
+* A parent node is the authoritative controller in a configuration. This node assigns tasks to one or more child nodes.
+* A child node is the non-authoritative node that receives tasks from the parent node. For example, a child node configured to handle mail-related functions for accounts on the parent node.
+
+For more information about linking nodes, read our [Link Server Nodes](/whm/server-configuration/link-server-nodes) interface documentation.
+
+### Child node restrictions
+
+The following restrictions apply for child nodes on a linked node configuration:
+
+* cPanel users cannot log in directly to cPanel on a child node. They must log in to cPanel on the parent node.
+* cPanel users must log in to their [Webmail](/knowledge-base/webmail) accounts via the `webmail` subdomain. For example, the `https://webmail.example.com` URL, not `https://example.com:2096` URL. They **cannot** log into Webmail via the parent node.
+* A distributed cPanel account's `mail` and `webmail` subdomains resolve to the child node.
+* You **must** call APIs on the parent node, which proxies requests to the child node.
+  * The system blocks **all** cPanel API calls on the child node.
+  * The system blocks WHM API functions that call a [distributed cPanel account](#cpanel-accounts-and-linked-nodes) on the child node.
+* You can only assign one child node to a cPanel account when offloading a specific functionality to the account. However, a parent node can have more than one child node that manages a specific functionality. For example, the system supports a parent node with two child nodes that both handle mail functionality. However, the system does **not** support a cPanel account using two child nodes for its mail functionality.
+* We **do not** currently support configurations that link more than one parent node to a single child node.
+
+## cPanel accounts and linked nodes
+
+A cPanel account that offloads specific functions (such as mail) to a child node is called a distributed cPanel account. This basic process consists of the following steps:
+
+1. The system creates two version of the account: one on the parent node and one on the child node.
+2. The system moves the desired functionality (for example, mail services) from the account on the parent node to the account on the child node. The account that exists on the parent node manages all other functionality.
+
+To view all distributed cPanel accounts on a child node, click *View Distributed Accounts* in WHM's [*Link Server Nodes*](/whm/server-configuration/link-server-nodes) interface (*WHM >> Home >> Server Configuration >> Link Server Nodes*).
+
+### Creating distributed accounts
+
+When you create a new account in WHM's [*Create a New Account*](/whm/account-functions/create-a-new-account) interface (*WHM >> Home >> Account Functions >> Create a New Account*), you can choose how to distribute the account. For example, to distribute the new account's mail, use the *Mail Routing Section* to assign a child node on which the account's mail will reside.
+
+### Make an existing account a distributed account
+
+To distribute an existing account, use the *Linked Nodes* section in WHM's [*Modify an Account*](/whm/account-functions/modify-an-account) interface (*WHM >> Home >> Account Functions >> Modify an Account*). The system will create the modified account on the child node as part of this process and offload the desired functionality to the child node's version of the account.
+
+{{% callout type="info" header="Note:" %}}
+If you modify a cPanel account to use a mail child node, the system copies the account's existing mail to that child node. After the system successfully distributes the account, it removes the account's mail stored on the parent node.
+{{% /callout %}}
+
+### Distributed accounts on a linked mail node
+
+In most cases, all [IMAP](/knowledge-base/cpanel-product/cpanel-glossary#imap), [POP3](/knowledge-base/cpanel-product/cpanel-glossary#pop3), and [SMTP](/knowledge-base/cpanel-product/cpanel-glossary#smtp) traffic for distributed cPanel accounts goes to the child mail node. However, if this traffic arrives at the parent node (for example, cached DNS lookups), the parent node will:
+
+* Create proxy IMAP and POP3 connections to the child mail node.
+* Reroute SMTP mail delivery to the child mail node.
+
+{{% callout type="danger" header="Warning:" %}}
+The following intructions apply to distributed cPanel accounts on a child mail node:
+
+* We disable the [*Pipe to a Program*](/cpanel/email/forwarders/#pipe-to-a-program) option in cPanel's [*Forwarders*](/cpanel/email/forwarders/) interface (*cPanel >> Home >> Email >> Forwarders*).
+* We do **not** support [email forwarders](/knowledge-base/cpanel-product/cpanel-glossary/#forwarder) that execute programs. Users can still manually create these forwarders. However, we will not preserve this functionality in future versions.
+{{% /callout %}}
+
+### Managing distributed accounts
+
+{{% callout type="warning" header="Important:" %}}
+Only system administrators can perform these actions.
+{{% /callout %}}
+
+You can manage your distributed cPanel accounts using one of the following methods:
+
+#### Undoing an account's distribution {#dedistribution}
+
+The process of moving some or all a distributed cPanel account's functionality from a child node back to the parent node is called "[dedistribution](/knowledge-base/cpanel-product/cpanel-glossary#dedistribution)." As part of this process, the system does **not** remove the account or the account's data from the child node.
+
+To dedistribute an account, use the *Linked Nodes* section in WHM's [*Modify an Account*](/whm/account-functions/modify-an-account) interface (*WHM >> Home >> Account Functions >> Modify an Account*).
+
+{{% callout type="danger" header="Warning:" %}}
+In some cases, you may need to forcefully dedistribute an account. For example, a child node is permanently offline or a child node's security is compromised. You can use WHM's [*Link Server Nodes*](/whm/server-configuration/link-server-nodes#the-account-list-interface) interface (*WHM >> Home >> Server Configuration >> Link Server Nodes*) to perform this action. However, performing this action **will** result in account data loss.
+{{% /callout %}}
+
+### Distributed reseller accounts
+
+Distributed [reseller accounts](/knowledge-base/accounts/guide-to-reseller-accounts) do not have their reseller privileges on the child node. Because of this, distributed reseller accounts cannot log in to WHM on a child node.
+
+#### Reseller-owned accounts
+
+When a distributed reseller creates a cPanel account, the new account will use the same distribution status as the reseller: distributed or not distributed. However, if the reseller account's distribution status changes, its cPanel accounts do **not** also change.
+
+For example, a distributed reseller creates a new cPanel account. Afterward, the server administrator [dedistributes](#dedistribution) the reseller account back to the parent node. All of the reseller's owned accounts will remain distributed to the child node unless the server administrator updates those accounts' distribution status.
+
+{{% callout type="info" header="Note:" %}}
+If one of a distributed reseller's cPanel accounts' distribution status changes, the reseller's distribution status does **not** change.
+{{% /callout %}}
+
+## Password management
+
+When using linked nodes, there are some things to consider for distributed cPanel account passwords:
+
+* A child node's [password strength configuration](/whm/security-center/password-strength-configuration) only affects passwords that relate to the functions the child node serves. For example, if an account's mail is distributed, the child node controls **only** that account's email account and mailing list password strength settings. The parent node controls all other password strength settings (for example, FTP and cPanel account passwords).
+* An account's [password age](/whm/security-center/configure-security-policies/#security-policy-items) on the parent node and child node will **not** match when you update this setting on the parent node.
