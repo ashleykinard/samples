@@ -9,6 +9,12 @@ The following are samples of work I created and contributed to the [cPanel & WHM
 
 The creation of this particular guide was borne out of necessity to provide detailed information about cPanel's *Linked Nodes* feature to system administrators. The information was considered important, but did not have its place in any existing documentation, nor did it have a place in any related interface documentation.
 
+### cPanel Tutorials - Mailing Lists Video
+
+* [URL](https://www.youtube.com/watch?v=Nmot-5sgdj4&t)
+
+A sample of a tutorial video produced for cPanel's [Mailing Lists](https://docs.cpanel.net/cpanel/email/mailing-lists/) interface.
+
 ### Other Sample Work
 The following are sample documents created as part of this professional portfolio:
 
