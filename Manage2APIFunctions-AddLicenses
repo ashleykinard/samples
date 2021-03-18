@@ -1,0 +1,136 @@
+## Description
+
+This function adds a new license to a Manage2 account.
+
+## Examples
+
+{{< accordion >}}
+{{% accordion-item title="Browser-based calls" %}}
+
+#### XML
+
+{{< highlight BASH >}}
+https://manage2.cpanel.net/XMLlicenseAdd.cgi?ip=192.0.2.0&packageid=8&groupid=13&force=1&dryrun=0&maxusers=120&external_notes=testlicense
+{{< /highlight >}}
+
+#### JSON
+
+{{< highlight BASH >}}
+https://manage2.cpanel.net/XMLlicenseAdd.cgi?output=json&ip=192.0.2.0&packageid=008&groupid=013&force=1&dryrun=0&maxusers=120&external_notes=testlicense
+{{< /highlight >}}
+
+#### YAML
+
+{{< highlight BASH >}}
+https://manage2.cpanel.net/XMLlicenseAdd.cgi?output=yaml&ip=192.0.2.0&packageid=008&groupid=013&force=1&dryrun=0&maxusers=120&external_notes=testlicense
+{{< /highlight >}}
+
+{{% /accordion-item %}}
+
+{{% accordion-item title="cPanelLicensing PHP Class" %}}
+
+{{< highlight PHP "linenos=TABLE" >}}
+<?php
+include("cpl.inc.php");
+$cpl = new cPanelLicensing("username@example.com", "123456luggage");
+$lisc = (array)$cpl->activateLicense(array(
+    "ip"          => "192.0.2.0",
+    "groupid"     => "013",
+    "packageid"   => 008",
+    "force"       => "1",
+    "dryrun"      => "0",
+    "maxusers"      => "120",
+    "external_notes"    => "testlicense"
+    )
+);
+?>
+{{< /highlight >}}
+
+{{% /accordion-item %}}
+
+{{% accordion-item title="cPanelLicensing Perl Module" %}}
+
+{{< highlight Perl "linenos=TABLE" >}}
+use cPanelLicensing;
+my $licenseManager = new cPanelLicensing(user => "username\@example.com", pass => "123456luggage");
+my $liscid = $licenseManager->activateLicense(
+    'ip'          => '192.0.2.0',
+    'groupid'     => '013',
+    'packageid'   => '008',
+    'force'       => '1',
+    "dryrun"      => "0",
+    "maxusers"      => "120",
+    "external_notes"    => "testlicense"
+);
+{{< /highlight >}}
+
+{{% /accordion-item %}}
+
+{{% accordion-item title="Output (XML)" %}}
+
+{{< highlight XML >}}
+<XMLlicenseAdd licenseid="6793969" monthly_price="21.34" price="0.00" promoinfo="" reason="Activated EXAMPLECOMPANY license on 192.0.2.0 in the 'example' group." status="1" yearly="0"/>
+{{< / highlight >}}
+
+{{% /accordion-item %}}
+
+{{% accordion-item title="Output (JSON)" %}}
+
+{{< highlight JSON "linenos=TABLE" >}}
+{
+    "monthly_price": "21.34",
+    "status": 1,
+    "yearly": 0,
+    "reason": "Activated EXAMPLECOMPANY license on 192.0.2.0 in the 'example' group.",
+    "price": "100.00",
+    "promoinfo": "",
+    "licenseid": "6793969"
+}
+{{< / highlight >}}
+
+{{% /accordion-item %}}
+
+{{% accordion-item title="Output (YAML)" %}}
+
+{{< highlight YAML "linenos=TABLE" >}}
+---
+monthly_price: '21.34'
+status: 1
+yearly: 0
+reason: Activated EXAMPLECOMPANY license on 192.0.2.0 in the 'example' group.
+price: '100.00'
+promoinfo: ''
+licenseid: '6793969'
+{{< / highlight >}}
+
+{{% /accordion-item %}}
+
+{{< /accordion >}}
+
+## Parameters
+
+This function accepts the following parameters:
+
+| Parameter | Type | Description | Example |
+| --------- | ---- | ----------- | ------- |
+| `ip` | *string* | **Required** </br> The IP address for which to add a license. | `192.0.2.0` |
+| `packageid` | *string* | **Required** </br> The package's ID number. The Manage2 [List Package Information](/manage2/api/manage2-api-list-package-information) function returns a list of possible values. | `008` |
+| `groupid` | *string* | **Required** </br> The ID of the group to which to add the license. The Manage2 [Display Groups](/manage2/api/manage2-api-display-groups) function returns a list of possible values. | `013` |
+| `force` </br> or </br> `reactivateok` | *Boolean* | Whether to forcibly add the license to the specified IP address: <ul><li>`1` — Forcibly add the license.</li><li>`0` — Do not forcibly add the license.</ul> This parameter defaults to `1`. | `0` |
+| `dryrun` | *Boolean* | Whether to display error messages and price information, but **not** activate the license: <ul><li>`1` — Display fee information but do **not** activate the license.</li><li>`0` — Do not display fee information but **activate** the license.</ul> This parameter defaults to `0`. | `1` |
+| `maxusers` | *integer* | The maximum number of users allowed on the license. | `120` |
+| `external_notes` | *string* | A space for additional information associated with the license, up to 64 characters long. | `testlicense` |
+
+## Returns
+
+This function returns the following values:
+
+| Return | Type | Description | Example |
+| ------ | ---- | ----------- | ------- |
+| `licenseid` | *integer* | The new license ID. | `6793969` |
+| `monthly_price` | *numeric* | The monthly base price of a license, in US dollars. | `21.34` |
+| `price` | *numeric* | The price for a license, in US dollars. | `100.00` |
+| `promoinfo` | *string* | Information about any applied promotional rates. One of: <ul><li>A string value.</li><li>`""` — No promotion applied. | `""` |
+| `reason` | *string* | Information about the license activation. | `Activated EXAMPLECOMPANY license on 192.0.2.0 in the 'example' group.` |
+| `status` | *Boolean* | Whether the function succeeded: <ul><li>`1` — Success.</li><li>`0` — Failure.</ul> | `1` |
+| `yearly` | *Boolean* | Whether the license is a yearly license: <ul><li>`1` — A yearly license.</li><li>`0` — Not a yearly license.</ul> | `0` |
