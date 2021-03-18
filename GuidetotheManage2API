@@ -1,0 +1,126 @@
+## Overview
+
+The Manage2 API automates cPanel license management procedures. For example, you can use the Manage2 API to [reactivate your cPanel licenses](/manage2/api/manage2-api-reactivate-expired-licenses).
+
+{{% callout type="warning" header="Important:" %}}
+You **must** authenticate with the proper permissions to call a function. Add the IP address from which to call the function to the Manage2 profile in Manage2's [*Add an Access IP*](/manage2/security/add-an-access-ip) interface (*Manage2 >> Dashboard >> Security >> Add an Access IP*).
+{{% /callout %}}
+
+For a list of available Manage2 API functions, read our [Manage2 API documentation](/manage2/api).
+
+#### Manage2 API basic information
+
+* **Languages** — PHP, Perl
+* **Methods** — GET, POST
+* **Return Formats** — XML, JSON, YAML
+
+## Basic usage
+
+You can access Manage2's API functions with the following methods:
+
+### Browser-based calls
+
+You can access Manage2 API functions directly from any web browser when you call a function from a Manage2 session. For example:
+
+{{< highlight BASH >}}
+https://manage2.cpanel.net/XMLlicenseReActivate.cgi?output=json&liscid=12345
+{{< /highlight >}}
+
+This example uses the following variables:
+
+| Variable | Description | Example |
+| -------- | ----------- | ------- |
+| `function` | The Manage2 API function. | `XMLlicenseReActivate` |
+| `output` | {{% callout type="info" header="Note:" %}}This variable is optional.{{% /callout %}} The template for the [return data](/manage2/knowledge-base/manage2-return-data), in `output=style` format: <ul><li>`json` — JSON output.</li><li>`yaml` — YAML output.</ul> The Manage2 API returns XML output by default. | `output=json` |
+| `parameter` | The parameters passed to the function, in `parameter=value` format. | `liscid` |
+| `value` | The parameter's value. | `12345` |
+
+#### Browser session URL call parts
+
+Browser-based Manage2 API calls resemble the following example:
+
+![A diagram of a Manage2 browser session URL call](/img/m2-browser-session-url-calls.png)
+
+Browser-based Manage2 API calls consist of the following basic parts:
+
+| Part | Description |
+| ---- | ----------- |
+| *Server* | The HTTP address of the Manage2 account. |
+| *Function* | The Manage2 API function name, followed by a question mark (`?`) character. |
+| *Output* | The function's output style. For more information, read our [Manage2 Return Data](/manage2/knowledge-base/manage2-return-data) documentation. |
+| *Parameters and values* | The function's parameters and their values. |
+
+### The cPanelLicensing PHP class
+
+You can access Manage2 API functions via the [`cPanelLicensing` PHP class](/manage2/knowledge-base/cpanellicensing-php-class):
+
+{{< highlight PHP "linenos=TABLE" >}}
+<?php
+include("cpl.inc.php");
+$cpl = new cPanelLicensing("username@example.com", "123456luggage");
+$license = $cpl->reactivateLicense(array(
+    "liscd"  => "12345"
+    )
+);
+?>
+{{< /highlight >}}
+
+{{% callout type="warning" header="Important:" %}}
+You **must** pass the username (for example, `username@example.com`) and password (for example, `123456luggage`) when you instantiate the PHP class.
+{{% /callout %}}
+
+This example uses the following variables:
+
+| Variable | Description | Example |
+| -------- | ----------- | ------- |
+| `function` | The Manage2 API function name. | `reactivateLicense` |
+| `parameter` | The parameters that you pass to the function, in `parameter=value` format. | `"liscid"`
+| `value`| The parameter's value. | `"12346"` |
+
+### The cPanelLicensing Perl module
+
+You can access Manage2 API functions via the [`cPanelLicensing` Perl module](/manage2/knowledge-base/cpanellicensing-perl-module):
+
+{{< highlight Perl "linenos=TABLE" >}}
+use cPanelLicensing;
+my $cpl = new cPanelLicensing('user' => "username\@example.com", 'pass' => "123456luggage");
+my $licenseid = $licenseManager->reactivateLicense(
+    'liscid' => '12345'
+);
+{{< / highlight >}}
+
+{{% callout type="warning" header="Important:" %}}
+You **must** pass the username (for example, `username@example.com`) and password (for example, `123456luggage`) to the module when you instantiate the Perl class.
+{{% /callout %}}
+
+This example uses the following variables:
+
+| Variable | Description | Example |
+| -------- | ----------- | ------- |
+| `function` | The Manage2 API function name. | `reactivateLicense` |
+| `parameter` | The parameters that you pass to the function, in `parameter=value` format. | `'liscid'` | 
+| `value` | The parameter's value. | `'12345'` |
+
+### cURL
+
+You can access Manage2 API functions via the [cURL](https://en.wikipedia.org/wiki/CURL) command line tool:
+
+{{< highlight BASH >}}
+curl 'https://manage2.cpanel.net/XMLlicenseReActivate.cgi?output=json&liscid=12345'
+{{< /highlight >}}
+
+You can also include the function and variables in separate strings, separated by the data (`-d`) flag. For example:
+
+{{< highlight BASH >}}
+curl 'https://manage2.cpanel.net/XMLlicenseReActivate.cgi' -d 'output=json&liscid=12345'
+{{< /highlight >}}
+
+{{% callout type="warning" header="Important:" %}}
+The system **ignores** any variables that you pass in the string **before** the `-d` flag. For example:
+
+{{< highlight BASH >}}
+curl 'https://manage2.cpanel.net/XMLlicenseReActivate.cgi?output=json' -d 'liscid=12345'
+{{< /highlight >}}
+
+If you attempt to call the function in this format, the system ignores the `output=json` variable.
+{{% /callout %}}
