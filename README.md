@@ -16,7 +16,7 @@ The creation of this particular guide was borne out of necessity to provide deta
 * [Markdown](GuidetotheManage2API)
 * [PDF](GuidetotheManage2API.pdf)
 
-This document describes the Manage2 API and its usage.
+This document describes the Manage2 API and its usage. This document required me to perform a substantial overhaul from its previous iteration on our old Confluence-based documentation.
 
 ### Manage2 API documentation
 
@@ -24,7 +24,7 @@ This document describes the Manage2 API and its usage.
 * [Markdown](Manage2APIFunction-AddLicenses.pdf)
 * [PDF](Manage2APIFunctions-AddLicenses)
 
-This document outlines the Manage2 API *Add Licenses* function.
+This document outlines the Manage2 API *Add Licenses* function. Because the Manage2 API is not part of the cPanel & WHM product, I had to migrate this documentation to Hugo and create a specific format for its publication.
 
 ### cPanel Tutorials - Mailing Lists Video
 
