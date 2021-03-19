@@ -1,0 +1,109 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Add a new product license",
+    "description" : "This function adds a new product license to a user's account.",
+    "contact" : {
+      "name" : "Ashley Kinard",
+      "email" : "ashleymkinard@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/ashleykinard/addlicense/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "paths" : {
+    "/addlicense" : {
+      "get" : {
+        "summary" : "This function adds a new product license to the given account.",
+        "description" : "This function adds a new product license to the given account.",
+        "operationId" : "addlicense",
+        "parameters" : [ {
+          "name" : "licenseID",
+          "in" : "query",
+          "description" : "The license ID to add to the account.",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "123456ABCD"
+          }
+        }, {
+          "name" : "username",
+          "in" : "query",
+          "description" : "The account to assign to the license.",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "username"
+          }
+        }, {
+          "name" : "licenseType",
+          "in" : "query",
+          "description" : "The type of license to add to the account:\n\n* `personal` - A license for personal accounts.\n* `corporate` - A corporate account license.\n* `trial` - A trial license.",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "personal", "corporate", "trial" ]
+          }
+        }, {
+          "name" : "notes",
+          "in" : "query",
+          "description" : "Internal notes about the license activation.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "This is a test account."
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The results of the product license addition.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad input parameter."
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "boolean",
+            "description" : "Whether the function succeeded:\n\n* `1` - Success.\n* `0` - Failure. Check the `results` value for information.",
+            "example" : false,
+            "enum" : [ true, false ]
+          },
+          "result" : {
+            "type" : "string",
+            "description" : "A message of success or failure.",
+            "example" : "Successfully added license."
+          }
+        }
+      }
+    }
+  }
+}
