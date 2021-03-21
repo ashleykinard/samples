@@ -35,5 +35,6 @@ A sample of a tutorial video produced for cPanel's [Mailing Lists](https://docs.
 ### Other Sample Work
 The following are sample documents created as part of this professional portfolio:
 
-* [AddLicense API](https://app.swaggerhub.com/apis/ashleykinard/addlicense/1.0.0) - An OpenAPI mockup of an "Add License" API document.
+* [AddLicense API](https://app.swaggerhub.com/apis/ashleykinard/addlicense/1.0.0) - An OpenAPI mockup of an *Add License* API document.
+* [RemoveLicense API](https://app.swaggerhub.com/apis/ashleykinard/removelicense/1.0.0) - An OpenAPI mockup of a *Remove License* API document.
 * [Logging Your Shift in Workday](https://github.com/ashleykinard/samples/blob/origin/WorkdaySample.pdf) - A mockup of using the *Workday* software to log a shift.
