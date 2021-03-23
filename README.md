@@ -10,6 +10,14 @@ The following are samples of work I created and contributed to the [cPanel & WHM
 
 The creation of this particular guide was borne out of necessity to provide detailed information about cPanel's *Linked Nodes* feature to system administrators. The information was considered important, but did not have its place in any existing documentation, nor did it have a place in any related interface documentation.
 
+### DNS Zone Manager
+
+* [URL](https://docs.cpanel.net/whm/dns-functions/dns-zone-manager/)
+* [Markdown](https://github.com/ashleykinard/samples/blob/origin/DNSZoneManager)
+* [PDF](https://github.com/ashleykinard/samples/blob/origin/DNSZoneManager.pdf)
+
+This document describes WHM's *DNS Zone Manager* interface. I created the version 86 document and iterated on it for work done in version 96.
+
 ### Guide to the Manage2 API
 
 * [URL](https://docs.cpanel.net/manage2/knowledge-base/guide-to-the-manage2-api/)
