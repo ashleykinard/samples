@@ -18,6 +18,14 @@ The creation of this particular guide was borne out of necessity to provide deta
 
 This document describes WHM's *DNS Zone Manager* interface. I created the version 86 document and iterated on it for work done in version 96.
 
+### cPanel Zone Manager
+
+* [Live URL](https://docs.cpanel.net/cpanel/domains/zone-editor/)
+* [Markdown](ZoneEditor)
+* [PDF](ZoneEditor.pdf)
+
+This document is the cPanel interface equivalent of WHM's [*DNS Zone Manager*](#dns-zone-manager), with slight variations and a different user audience.
+
 ### Guide to the Manage2 API
 
 * [URL](https://docs.cpanel.net/manage2/knowledge-base/guide-to-the-manage2-api/)
