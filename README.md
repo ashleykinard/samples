@@ -1,6 +1,6 @@
 ## Professional Portfolio
 
-The following are samples of work I created and contributed to the [cPanel & WHM](https://www.cpanel.net) product:
+The following are samples of work I edited or created to contribute to the [cPanel & WHM](https://www.cpanel.net) product:
 
 ### cPanel Linked Nodes Guide
 
@@ -53,8 +53,8 @@ This script outlines the `balance_linked_node_quotas` script and how to use it. 
 ### The sync_child_accounts script documentation
 
 * [Live URL](https://docs.cpanel.net/whm/scripts/the-sync_child_accounts-script/)
-* [Markdown]()
-* [PDF]()
+* [Markdown](sync-child-node-script)
+* [PDF](sync-child-node-script.pdf)
 
 A script document for the `sync_child_accounts` script, also tied to the work for [cPanel linked server nodes](#cpanel-linked-nodes-guide).
 
@@ -69,15 +69,15 @@ This document describes the Manage2 API and its usage. This document required me
 ### Manage2 API documentation
 
 * [URL](https://docs.cpanel.net/manage2/api/manage2-api-add-licenses/)
-* [Markdown](Manage2APIFunction-AddLicenses.pdf)
-* [PDF](Manage2APIFunctions-AddLicenses)
+* [Markdown](Manage2APIFunction-AddLicenses)
+* [PDF](Manage2APIFunctions-AddLicenses.pdf)
 
 This document outlines the Manage2 API *Add Licenses* function. Because the Manage2 API is not part of the cPanel & WHM product, I had to migrate this documentation to Hugo and create a specific format for its publication.
 
 ### Guide to API Privilege Escalation
 
-* [Markdown](DD-GuidetoAPIPrivilegeEscalation-TheAdminModuleMethod.pdf)
-* [PDF](GuidetoAPIPrivilegeEscalation-AdminModule)
+* [Markdown](GuidetoAPIPrivilegeEscalation-AdminModule)
+* [PDF](DD-GuidetoAPIPrivilegeEscalation-TheAdminModuleMethod.pdf)
 
 This document is intended for higher-level developer audiences. The developer drafted the initial document and I applied our style guide to it to make it fit. This was originally published via Confluence, but recently moved to a Markdown format as part of a documentation transition to allow this document to live alongside our [API documentation](https://api.docs.cpanel.net/).
 
