@@ -1,0 +1,21 @@
+## Overview
+
+The `/usr/local/cpanel/scripts/sync_child_accounts` script lets you synchronize the user configuration of a [distributed cPanel account](/knowledge-base/cpanel-product/cpanel-glossary#distributed-cpanel-account). You can use this script when a cPanel account's user configuration falls out of sync between the [parent node](/knowledge-base/cpanel-product/cpanel-glossary#parent-node) and its [child nodes](/knowledge-base/cpanel-product/cpanel-glossary#child-node). In most cases, you should not need to run this script. However, running this script for a synchronized account will **not** make any unwanted changes to a cPanel account.
+
+## Run the script
+
+To run this script on the command line, use the following format:
+
+{{< highlight BASH >}}
+/usr/local/cpanel/scripts/sync_child_accounts [options]
+{{< /highlight >}}
+
+### Options
+
+Use the following options with this script:
+
+| Options     | Description                      | Example       |
+| ----------- | -------------------------------- | ------------- |
+| `--user`    | Run the script for a distributed cPanel account. | `--user=username` |
+| `--all`     | Run the script for all distributed cPanel accounts. {{% callout type="info" header="Note:" %}}You cannot pass both this option and the `user` option.{{% /callout %}} | `--all` |
+| `--help`    | Print the script's help information. | `--help` |

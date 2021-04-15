@@ -1,0 +1,22 @@
+## Overview
+
+The `/usr/local/cpanel/scripts/balance_linked_node_quotas` script lets you enforce disk use quotas for [distributed cPanel accounts](/knowledge-base/cpanel-product/cpanel-glossary). These accounts use [linked cPanel & WHM nodes](/whm/server-configuration/link-server-nodes). The system aggregates the disk usage for each cPanel account from the both the parent node and its child nodes. The script then adjusts each cPanel account's disk use quota on both the parent and child nodes. The quota is closer to the actual disk space the cPanel account uses on each server. This helps ensure that distributed cPanel accounts do not exceed their quota limits. 
+
+For example, you have a cPanel user with a disk use quota of 10 gigabytes (GB). This account uses 7.5 GB for mail services. You decide to [offload the mail services to a cPanel & WHM child node](/knowledge-base/general-systems-administration/how-to-use-server-profiles). When you run this script, the system assigns 75% of the user's disk quota to the child node, and 25% to the parent node.
+
+## Run the script
+
+To run this script on the command line, use the following format:
+
+{{< highlight BASH >}}
+/usr/local/cpanel/scripts/balance_linked_node_quotas [options]
+{{< /highlight >}}
+
+### Options
+
+Use the following options with this script:
+
+| Options     | Description                      | Example       |
+| :---------- | :------------------------------- | :------------ |
+| `--verbose` | Run the script in verbose mode.  | `--verbose`   |
+| `--help`    | Displays the help documentation. | `--help`      | 

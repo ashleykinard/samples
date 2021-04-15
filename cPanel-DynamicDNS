@@ -1,0 +1,81 @@
+## Overview
+
+Use this interface to utilize a Domain Name System (DNS) hosted on the cPanel server to resolve a hostname that exists on an external network with a dynamic IP address. A dynamic IP address changes, while a static IP address stays the same. This feature lets you manage your network devices without the need to manually update their settings any time the IP address changes.
+
+The following steps provide a brief summary of how this feature works:
+
+1. Click *Create* to add a domain, for example, `home.example.com`.
+2. The interface creates a unique URL ([webcall](/knowledge-base/cpanel-product/cpanel-glossary#webcall)) for your new dynamic DNS domain. Use this URL to configure your device.
+3. When your device calls the webcall URL, the server automatically sets the domain's IP address to your device's public IP address.
+
+For example, you can use this feature to have cPanel host a DNS for a hostname that points to your office network's public IP address. When the IP address changes, the network will automatically update the DNS.
+
+{{% callout type="warning" header="Important:"%}}
+To use this feature, your hosting provider must perform the following actions:
+
+* Configure nameservers for the active domains on your cPanel account in WHM's [*DNS Cluster*](/whm/clusters/dns-cluster) interface (*WHM >> Home >> Clusters >> DNS Cluster*).
+* [Register nameservers](/knowledge-base/dns/how-to-set-up-nameservers-in-a-cpanel-environment/) for the active domains on your cPanel account.
+  * You **must** configure your cPanel account's active domains to use the nameservers that your hosting provider registers in cPanel's [*Zone Editor*](/cpanel/domains/zone-editor/) interface (*cPanel >> Home >> Domains >> Zone Editor*).
+{{% /callout %}}
+
+## The Dynamic DNS (DDNS) interface table
+
+The *Dynamic DNS* interface displays a table that contains your DDNS domains and their information. You can also perform actions for the domains that you select. The table contains the following information:
+
+* *Domain* — The DDNS domain that you can navigate to in your browser. This will also display the DDNS domain's description, if one exists. You can also click a domain in this column to view the following options:
+  * *Description* — Use this text box to add or update a DDNS domain's description. Click *Save* to apply your changes or *Cancel* to discard your changes.
+  * *Last Update Time* — The most recent time when the IP address changed for the DDNS domain.
+  * *Last Run Time* — The most recent time when a request to update the IP address happened. If the IP address stays the same between requests, the server keeps the domain's IP address the same.
+* *IP Address* — The IPv4 or IPv6 address or addresses that the DDNS domain resolves to. This IP address synchronizes with the dynamic IP address of the network's router.
+* *URL* — The [webcall](/knowledge-base/cpanel-product/cpanel-glossary#webcall) URL. The device on your dynamic IP address network calls this URL to update the IP address for the DDNS domain.
+* *SSL Certificate* — The SSL certificate for the DDNS domain, if available. To view or copy the certificate, click *View SSL Certificate*.
+
+### Create a new DDNS domain
+
+To create a new DDNS domain, click *Create*. The *Create Dynamic DNS Domain* interface will appear. Then, perform the following steps:
+   
+1. Enter a unique subdomain in the *Dynamic DNS Domain* text box. Then, select a domain from the menu.
+2. To add an IP address, click *Manually Enter an IP Address*. Then, enter a valid IPv4 or IPv6 address.
+  {{% callout type="info" header="Note:" %}}
+  This IP address will update when you configure your router or device.
+  {{% /callout %}}
+3. Enter an optional description to help you identify the new DDNS domain.
+4. If you want to create another domain, select the *Stay on this page after I click "Create"* checkbox. Otherwise, click *Create* to save your changes.
+5. After creating the new DDNS domain, add the new webcall URL to your router or device's configuration.
+
+### Manage a DDNS domain
+
+To update a webcall URL or delete a DDNS domain, perform the following steps:
+
+1. Select the checkbox of each domain you want to modify.
+2. Click *Action*.
+3. Select one of the following options:
+   * *Recreate URL* — This option generates a new webcall URL for the DDNS domain.
+   * *Delete* — This option will remove the DDNS domain. Click *Delete* to confirm.
+   {{% callout type="warning" header="Important:" %}}
+   * You **cannot** undo this action.
+   * Deleting a DDNS domain does **not** delete its SSL certificate.
+   {{% /callout %}}
+
+### View SSL Certificate
+
+{{% callout type="warning" header="Important:" %}}
+We **strongly** recommend that you use a secure connection to your router or device.
+{{% /callout %}}
+
+To view the contents of a DDNS domain's SSL certificate, click *View SSL Certificate*. A new interface will appear. You can then copy the SSL certificate's contents to your DDNS-enabled device.
+
+{{% callout type="info" header="Note:" %}}
+Each device's interface is unique. Consult your device's documentation for specific installation instructions.
+{{% /callout %}}
+
+On the device that you are configuring for DDNS, search for a tab called *HTTPS*, *DDNS*, or *SSL/TLS Certificate*, or something similar. This tab could be in an *Advanced* or *WAN* menu. You can copy the contents of the text boxes from this interface into your device's text boxes.
+
+#### Manage a DDNS domain's SSL certificate
+
+Use cPanel's [*SSL/TLS Status*](/cpanel/security/ssl-tls-status/) interface (*cPanel >> Home >> Security >> SSL/TLS*) to:
+
+  * Check the status of your DDNS domain's certificate.
+  * Request a new SSL certificate for a DDNS domain.
+
+You can also use the *SSL/TLS Status* interface if your DDNS domain displays the *No certificate available for this domain* message.
