@@ -1,4 +1,16 @@
-## Professional Portfolio
+# Professional Portfolio
+
+## Zoom
+
+The following are samples of documentation created or contributed to for [Zoom](https://zoom.us/):
+
+### Developer Realtions department style guide
+
+* [PDF](https://github.com/ashleykinard/samples/blob/origin/DevRelStyleGuide.pdf)
+
+This documentation was created at the request of the Zoom Developer Relations team to help facilitate a more unified voice, tone, and content format for articles.
+
+## cPanel & WHM
 
 The following are samples of work I edited or created to contribute to the [cPanel & WHM](https://www.cpanel.net) product:
 
@@ -95,7 +107,8 @@ A sample of a Confluence-based `uapi_cpanel` API function document I created.
 
 A sample of a tutorial video produced for cPanel's [Mailing Lists](https://docs.cpanel.net/cpanel/email/mailing-lists/) interface.
 
-### Other Sample Work
+## Other Sample Work
+
 The following are sample documents created as part of this professional portfolio:
 
 * [AddLicense API](https://app.swaggerhub.com/apis/ashleykinard/addlicense/1.0.0) - An OpenAPI mockup of an *Add License* API document.
