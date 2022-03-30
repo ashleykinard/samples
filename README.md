@@ -1,22 +1,5 @@
 # Professional Portfolio
 
-## Zoom
-
-The following are samples of documentation created or contributed to for [Zoom](https://zoom.us/):
-
-### Developer Realtions department style guide
-
-* [PDF](https://github.com/ashleykinard/samples/blob/origin/DevRelStyleGuide.pdf)
-
-This documentation was created at the request of the Zoom Developer Relations team to help facilitate a more unified voice, tone, and content format for articles.
-
-Additionally, the following documents were created to supplement the Developer Relations style guide:
-
-* Article submission and review process — [PDF](https://github.com/ashleykinard/samples/blob/origin/ArticleSubmissionsReviewsProcesses.pdf)
-* Guide article template — [Markdown](https://github.com/ashleykinard/samples/blob/origin/GuideTemplate.md)
-* FAQ article template — [Markdown](https://github.com/ashleykinard/samples/blob/origin/FAQTemplate.md)
-* Troubleshooting article template — [Markdown](https://github.com/ashleykinard/samples/blob/origin/TroubleshootTemplate.md)
-
 ## cPanel & WHM
 
 The following are samples of work I edited or created to contribute to the [cPanel & WHM](https://www.cpanel.net) product:
