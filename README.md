@@ -1,5 +1,29 @@
 # Professional Portfolio
 
+## Postman
+
+The following are samples of documentation maintained for [Postman](https://www.postman.com/):
+
+* [Postman API Collection](https://www.postman.com/postman/workspace/postman-public-workspace/collection/12959542-c8142d51-e97c-46b6-bd77-52bb66712c9a)
+* [Postman API OAS](https://www.postman.com/postman/workspace/postman-public-workspace/api/72a32ca3-f06a-4e83-a933-2821a0e6616f/definition/024624cf-e622-4836-9d19-efd067f6cbdb?version=8843afee-0e46-497d-b6b4-d95870ba2a24&view=documentation)
+
+## Zoom
+
+The following are samples of documentation created or contributed to for [Zoom](https://zoom.us/):
+
+### Developer Relations department style guide
+
+* [PDF](https://github.com/ashleykinard/samples/blob/origin/DevRelStyleGuide.pdf)
+
+This documentation was created at the request of the Zoom Developer Relations team to help facilitate a more unified voice, tone, and content format for articles.
+
+Additionally, the following documents were created to supplement the Developer Relations style guide:
+
+* Article submission and review process — [PDF](https://github.com/ashleykinard/samples/blob/origin/ArticleSubmissionsReviewsProcesses.pdf)
+* Guide article template — [Markdown](https://github.com/ashleykinard/samples/blob/origin/GuideTemplate.md)
+* FAQ article template — [Markdown](https://github.com/ashleykinard/samples/blob/origin/FAQTemplate.md)
+* Troubleshooting article template — [Markdown](https://github.com/ashleykinard/samples/blob/origin/TroubleshootTemplate.md)
+
 ## cPanel & WHM
 
 The following are samples of work I edited or created to contribute to the [cPanel & WHM](https://www.cpanel.net) product:
