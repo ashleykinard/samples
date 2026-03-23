@@ -2,8 +2,8 @@
 
 The following are samples of documentation maintained for [Postman](https://www.postman.com/):
 
-* [Postman API Collection](https://www.postman.com/postman/postman-public-workspace/collection/i2uqzpp/postman-api)
-* [Postman API OAS](https://www.postman.com/postman/postman-public-workspace/specification/3001f4e4-5f9d-4bac-9f57-b2c4d483508f/file/1f4ad1bf-697f-4be6-a167-dc1f3cf2abf2?ctx=preview)
+* [Postman API Collection](https://www.postman.com/postman/postman-public-workspace/collection/i2uqzpp/postman-api) (Live)
+* [Postman API OAS](https://www.postman.com/postman/postman-public-workspace/specification/3001f4e4-5f9d-4bac-9f57-b2c4d483508f/file/1f4ad1bf-697f-4be6-a167-dc1f3cf2abf2?ctx=preview) (Live)
 * [Postman API Overview](https://github.com/ashleykinard/samples/blob/origin/postmanApiOverview.md)
 * [Remote Postman MCP Server Guide](https://github.com/ashleykinard/samples/blob/origin/postmanMcpRemoteServer.md)
 * [Local Postman MCP Server Guide](https://github.com/ashleykinard/samples/blob/origin/postmanMcpLocalServer.md)
