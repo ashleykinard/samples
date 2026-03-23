@@ -1,5 +1,4 @@
-title: Set up a remote Postman MCP server
--------
+# Set up a remote Postman MCP server
 
 The remote Postman MCP server is hosted by Postman over streamable HTTP and provides the easiest method for getting started.
 
