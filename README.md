@@ -87,8 +87,8 @@ This document describes the Manage2 API and its usage. This document required me
 
 ### Manage2 API documentation
 
-* [Markdown](https://github.com/ashleykinard/samples/blob/origin/Manage2APIFunction-AddLicenses)
-* [PDF](https://github.com/ashleykinard/samples/blob/origin/Manage2APIFunctions-AddLicenses.pdf)
+* [Markdown](https://github.com/ashleykinard/samples/blob/origin/Manage2APIFunctions-AddLicenses)
+* [PDF](https://github.com/ashleykinard/samples/blob/origin/Manage2API%20Function-AddLicenses.pdf)
 
 This document outlines the Manage2 API *Add Licenses* function. Because the Manage2 API is not part of the cPanel & WHM product, I had to migrate this documentation to Hugo and create a specific format for its publication.
 
