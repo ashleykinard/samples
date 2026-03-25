@@ -2,9 +2,7 @@
 
 The local server is based on STDIO transport and is hosted locally on an environment of your choice. STDIO is a lightweight solution that's ideal for integration with editors and tools like Visual Studio Code. Install an MCP-compatible VS Code extension, such as GitHub Copilot, Claude for VS Code, or other AI assistants that support MCP. The local server only supports API key authentication (with a Postman API key or Bearer token).
 
-<Info>
-  The local server only supports API key authentication (with a Postman API key or Bearer token).
-</Info>
+> The local server only supports API key authentication (with a Postman API key or Bearer token).
 
 ### Use cases
 
@@ -13,6 +11,7 @@ Consider using the local Postman MCP server if:
 * You want to power local use cases, such as local API testing.
 * You have specific security and network requirements.
 * You prefer to build the MCP server from the source code in this repo.
+* You're working with internal APIs.
 
 ### Supported configurations
 
@@ -24,9 +23,7 @@ The local server supports the following tool configurations:
 
 Use the `--region` flag to specify the Postman API region (`us` or `eu`), or set the `POSTMAN_API_BASE_URL` environment variable directly. By default, the server uses the `us` option.
 
-<Note>
-  To run the server as a Node application, install [Node.js](https://nodejs.org/) before getting started.
-</Note>
+> To run the server as a Node application, install [Node.js](https://nodejs.org/) before getting started.
 
 ## Visual Studio Code
 
@@ -40,7 +37,7 @@ By default, the server uses **Full** mode. To access **Minimal** mode, remove th
 
 ### Manual configuration
 
-You can manually integrate your MCP server with Cursor or VS Code to use it with extensions that support MCP. To do this, create a `mcp.json` file in your project and add the following JSON block to it:
+You can manually integrate your MCP server with VS Code to use it with extensions that support MCP. To do this, create a `mcp.json` file in your project and add the following JSON block to it:
 
 ```json wordWrap
 {
@@ -81,7 +78,7 @@ By default, the server uses **Full** mode. To access **Minimal** mode, remove th
 
 ### Manual installation
 
-You can manually integrate your MCP server with VS Code to use it with extensions that support MCP. To do so, create a `.vscode/mcp.json` file in your project and add the following JSON block to it:
+To manually integrate your MCP server with Cursor and VS Code, create a `.vscode/mcp.json` file in your project and add the following JSON block to it:
 
 ```json wordWrap
 {
@@ -257,14 +254,20 @@ gemini extensions install https://github.com/postmanlabs/postman-mcp-server
 
 ## Kiro
 
-To set up the Postman MCP server with one-click, go to [Kiro Powers](https://kiro.dev/powers/) and click **API Testing with Postman**. Then, click **Add to Kiro**.
+To install the local Postman MCP Server in Kiro, click the install button for the version that you want to use:
+
+| **Minimal**                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | **Code**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | **Full**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a href="https://kiro.dev/launch/mcp/add?name=postman-mcp-server&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40postman%2Fpostman-mcp-server%40latest%22%5D%2C%22env%22%3A%7B%22POSTMAN_API_KEY%22%3A%22%24%7BPOSTMAN_API_KEY%7D%22%7D%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D" target="_blank" rel="noopener noreferrer"> <img alt="Add Postman MCP Minimal server to Kiro" src="https://kiro.dev/images/add-to-kiro.svg" align="left" /></a> | <a href="https://kiro.dev/launch/mcp/add?name=postman-mcp-server&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40postman%2Fpostman-mcp-server%40latest%22%2C%22--code%22%5D%2C%22env%22%3A%7B%22POSTMAN_API_KEY%22%3A%22%24%7BPOSTMAN_API_KEY%7D%22%7D%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D" target="_blank" rel="noopener noreferrer"> <img alt="Add Postman MCP Code server to Kiro" src="https://kiro.dev/images/add-to-kiro.svg" align="left" /></a> | <a href="https://kiro.dev/launch/mcp/add?name=postman-mcp-server&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40postman%2Fpostman-mcp-server%40latest%22%2C%22--full%22%5D%2C%22env%22%3A%7B%22POSTMAN_API_KEY%22%3A%22%24%7BPOSTMAN_API_KEY%7D%22%7D%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D" target="_blank" rel="noopener noreferrer"> <img alt="Add Postman MCP Full server to Kiro" src="https://kiro.dev/images/add-to-kiro.svg" align="left" /></a> |
+
+To install the Postman MCP server with Kiro powers, go to [Kiro Powers](https://kiro.dev/powers/) and navigate to **API Testing with Postman** in the **Browse powers** section. Then, click **Add to Kiro**.
 
 ### Manual installation
 
-To manually install the Postman MCP server in Kiro, do the following:
+To install the Postman MCP Server manually, do the following:
 
-1. Launch the Kiro app, then click the Kiro ghost icon in the left navigation.
-2. Add an MCP Server, then select **User Config** or **Workspace Config** to install the Postman MCP server.
+1. Launch Kiro and click the Kiro ghost icon in the left sidebar.
+2. Add an MCP Server and select either **User Config** or **Workspace Config** to install the Postman MCP server.
 3. Add the following JSON block to the `mcp.json` configuration file:
 
    ```json wordWrap
@@ -288,8 +291,6 @@ To manually install the Postman MCP server in Kiro, do the following:
    ```
 
 ## Docker
-
-{/* To use the Postman MCP server in Docker, you can use one of the following methods:  */}
 
 To install the Postman MCP server in Docker, see the [Postman MCP server](https://hub.docker.com/mcp/server/postman/overview) at Docker MCP Hub. Click **+ Add to Docker Desktop** to automatically install it.
 
