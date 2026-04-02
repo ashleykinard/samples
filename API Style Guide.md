@@ -19,17 +19,21 @@ Internal APIs should provide the same level of documentation quality expected fo
 **Use sentence case** Begin the name of the API with the verb related to its action.
 
 ✅ Get all users
+
 ✅ Create a new user
+
 ❌ Get All Users
 
 When possible, keep API names concise.
 
 ✅ Get user data
+
 ❌ Get information about a user
 
 Do not use punctuation in the `summary` property.
 
 ✅ Get all users
+
 ❌ Get all users.
 
 ## Describing an API
