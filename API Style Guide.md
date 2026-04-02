@@ -24,15 +24,13 @@ Internal APIs should provide the same level of documentation quality expected fo
 
 When possible, keep API names concise.
 
-✅ Get user data
-
-❌ Get information about a user
+- ✅ Get user data
+- ❌ Get information about a user
 
 Do not use punctuation in the `summary` property.
 
-✅ Get all users
-
-❌ Get all users.
+- ✅ Get all users
+- ❌ Get all users.
 
 ## Describing an API
 
@@ -40,10 +38,10 @@ Do not use punctuation in the `summary` property.
 
 Begin with a present-tense verb and briefly state what action the API performs.
 
-✅ Gets information about the user.
-✅ Deletes a user from the database.
-❌ This endpoint lets you get information about the user.
-❌ Delete operation
+- ✅ Gets information about the user.
+- ✅ Deletes a user from the database.
+- ❌ This endpoint lets you get information about the user.
+- ❌ Delete operation
 
 Provide further explanation in subsequent sentences. For example, how to use it, prerequisites, behaviors the consumer should be aware of, or related APIs to direct the consumer to.
 
@@ -57,8 +55,8 @@ Document any behaviors consumers should expect from the endpoint.
 
 Use code font for parameter names to make them scannable.
 
-✅ The user's `id` value.
-❌ The user's id value.
+- ✅ The user's `id` value.
+- ❌ The user's id value.
 
 ### Default behavior
 
@@ -66,20 +64,20 @@ Include the `default` value where applicable to note default behavior when descr
 
 In some cases, behavior may be unclear from the `default` property alone. In such cases, provide context in the property's description.
 
-✅ Whether the user is in the public directory. This value defaults to null.
-✅ The user's ID. If you do not provide this value, the system randomly generates a user ID.
+- ✅ Whether the user is in the public directory. This value defaults to null.
+- ✅ The user's ID. If you do not provide this value, the system randomly generates a user ID.
 
 ## Request body
 
 Use "property" and "properties" to describe a request body JSON object's key value.
 
-✅ The `id` property in the `user` object.
+- ✅ The `id` property in the `user` object.
 
 ## Empty responses
 
 If an API returns an empty response, such as an HTTP 204 No Content or HTTP 201 Created response, note it in the description. Consumers may expect to see output.
 
-✅ Creates a new response. On success, this returns an HTTP `204 No Content` response.
+- ✅ Creates a new response. On success, this returns an HTTP `204 No Content` response.
 
 ## Examples
 
@@ -113,12 +111,12 @@ Don't use trademarked or copyrighted examples. This includes brands, characters,
 
 When in doubt, use "Test", "Example", or "Sample" as placeholder values.
 
-✅ Test API
-✅ Example, Inc.
-✅ https://example.git.com
-❌ Dungeons & Dragons API
-❌ Dunder Mifflin, Inc.
-❌ https://xkcd.com
+- ✅ Test API
+- ✅ Example, Inc.
+- ✅ https://example.git.com
+- ❌ Dungeons & Dragons API
+- ❌ Dunder Mifflin, Inc.
+- ❌ https://xkcd.com
 
 ### Domains and IP addresses
 
@@ -166,29 +164,29 @@ Refer to [Google's Word list](https://developers.google.com/style/word-list). It
 
 Use serial commas (Oxford commas) to eliminate ambiguity.
 
-✅ This API gets the user's ID, name, and IP address.
-❌ This API gets the user's ID, name and IP address.
+- ✅ This API gets the user's ID, name, and IP address.
+- ❌ This API gets the user's ID, name and IP address.
 
 ### Dashes
 
 Use em dashes (—) to separate listed items from their descriptions.
 
-✅ `id` — The user's ID.
-❌ `id` - The user's ID.
-❌ `id` -- The user's ID.
+- ✅ `id` — The user's ID.
+- ❌ `id` - The user's ID.
+- ❌ `id` -- The user's ID.
 
 ### Hyphens
 
 Use a hyphen with a space on either side to separate values, such as IP address ranges.
 
-✅ `192.0.2.0` - `192.0.2.255`
+- ✅ `192.0.2.0` - `192.0.2.255`
 
 ### Ampersands
 
 Do not use the ampersand (`&`) character. Use "and" instead.
 
-✅ This API returns a user's basic data and usage information.
-❌ This API returns a user's basic data & usage information.
+- ✅ This API returns a user's basic data and usage information.
+- ❌ This API returns a user's basic data & usage information.
 
 ### Important callouts
 
@@ -214,23 +212,23 @@ The maximum allowed file size is 10 MB.
 
 Use "for example". Don't use abbreviations such as "e.g.", as abbreviations don't always localize.
 
-✅ The user's ID. For example, `123-456-7890`.
-❌ The user's ID, e.g. `123-456-7890`.
+- ✅ The user's ID. For example, `123-456-7890`.
+- ❌ The user's ID, e.g. `123-456-7890`.
 
 ### Whether
 
 Use "whether" when describing Boolean values. Don't use "whether or not".
 
-✅ Whether the API is public.
-❌ Whether or not the API is public.
+- ✅ Whether the API is public.
+- ❌ Whether or not the API is public.
 
 You can use "if true" form for Boolean values.
 
-✅ If true, sets the API as public.
+- ✅ If true, sets the API as public.
 
 ### Sentences
 
 End all sentences, including descriptions, with a period.
 
-✅ An ID is the unique identifier assigned to a user's account.
-❌ The API uses API keys for authentication
+- ✅ An ID is the unique identifier assigned to a user's account.
+- ❌ The API uses API keys for authentication
