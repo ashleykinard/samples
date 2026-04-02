@@ -18,11 +18,9 @@ Internal APIs should provide the same level of documentation quality expected fo
 
 **Use sentence case** Begin the name of the API with the verb related to its action.
 
-✅ Get all users
-
-✅ Create a new user
-
-❌ Get All Users
+- ✅ Get all users
+- ✅ Create a new user
+- ❌ Get All Users
 
 When possible, keep API names concise.
 
