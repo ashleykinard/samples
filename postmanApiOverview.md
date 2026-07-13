@@ -4,10 +4,6 @@ Use the [Postman API](https://api.postman.com/) to programmatically manage your 
 
 You can get started by [forking](/docs/collaborating-in-postman/using-version-control/forking-elements/) the Postman API collection in the Postman Public Workspace.
 
-<center>
-  [<img src="https://run.pstmn.io/button.svg" alt="Fork the Postman API collection" />](https://app.getpostman.com/run-collection/12959542-c8142d51-e97c-46b6-bd77-52bb66712c9a?action=collection%2Ffork\&source=rip_markdown\&collection-url=entityId%3D12959542-c8142d51-e97c-46b6-bd77-52bb66712c9a%26entityType%3Dcollection%26workspaceId%3D405e0480-49cf-463b-8052-6c0d05a8e8f3)
-</center>
-
 For more details, see the [Postman API documentation](https://api.postman.com/). You'll also need an [API key](/docs/reference/postman-api/authentication/#generate-a-postman-api-key) to access the Postman API.
 
 The Postman API is [rate limited](/docs/reference/postman-api/postman-api-rate-limits/).
