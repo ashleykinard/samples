@@ -1,150 +1,144 @@
-# Set up a local Postman MCP server
+# Set up a remote Postman MCP server
 
-The local server is based on STDIO transport and is hosted locally on an environment of your choice. STDIO is a lightweight solution that's ideal for integration with editors and tools like Visual Studio Code. Install an MCP-compatible VS Code extension, such as GitHub Copilot, Claude for VS Code, or other AI assistants that support MCP. The local server only supports API key authentication (with a Postman API key or Bearer token).
+The remote Postman MCP server is hosted by Postman over streamable HTTP and provides the easiest method for getting started.
 
-The local server only supports API key authentication (with a Postman API key or Bearer token).
+The remote server supports OAuth for the best developer experience and fastest setup, and doesn't require an API key. OAuth provides stronger security and access control compared to a static API key. It's MCP specification-compliant, including Dynamic Client Registration (DCR), OAuth metadata, and PKCE.
+
+The EU remote server only supports API key authentication.
+
+MCP hosts that support OAuth can discover and use it automatically for all tools. The remote server also accepts a Postman API key (Bearer token in the Authorization header).
 
 ### Before you begin
 
-Local servers only support API key authentication, so you'll need to generate a Postman API key. For an overview of the server, remote versus local, and when to use each configuration, see **Use AI agents with the Postman API**.
+To use API key authentication (required for EU servers), generate a [Postman API key](https://postman.postman.co/settings/me/api-keys). The US remote server supports OAuth and doesn't require a key. For an overview of the server, remote versus local, and when to use each configuration, see **Use AI agents with the Postman API**.
 
-### Supported configurations
+### Endpoints
 
-The local server supports the same tool configurations as the remote server—**Minimal** (default), **Code**, and **Full**—selected with a command-line flag. It also supports a local-only option:
+Use the endpoint that matches the tool configuration you want. Each is available in both the US and EU regions:
 
-* **Quiet** — Suppresses `debug` and `info` logs in stderr and returns only `warn` and `error`. Required for Windsurf users on Windows, where it avoids a stderr pipe buffer deadlock that causes the MCP initialize request to time out. Enable it alongside the **Minimal**, **Code**, or **Full** configuration.
+| Configuration     | US endpoint                       | EU endpoint                          |
+| ----------------- | --------------------------------- | ------------------------------------ |
+| Minimal (default) | `https://mcp.postman.com/minimal` | `https://mcp.eu.postman.com/minimal` |
+| Code              | `https://mcp.postman.com/code`    | `https://mcp.eu.postman.com/code`    |
+| Full              | `https://mcp.postman.com/mcp`     | `https://mcp.eu.postman.com/mcp`     |
 
-Use the `--region` flag to specify the Postman API region (`us` or `eu`), or set the `POSTMAN_API_BASE_URL` environment variable directly. By default, the server uses the `us` option.
-
-To run the server as a Node application, install [Node.js](https://nodejs.org/) before getting started.
+OAuth is available on the US server only. The EU server requires a Postman API key (Bearer token in the `Authorization` header).
 
 ## Claude Code
 
-To install the MCP server in Claude Code, run one of the following commands in your terminal:
+On the US server, Claude Code automatically uses OAuth for the best installation experience. To use an API key (required for the EU server), add the `--header` flag.
+
+### OAuth
+
+To use the OAuth installation method for US servers, run one of the following commands in your terminal:
 
 ```bash wordWrap
-claude mcp add postman --env POSTMAN_API_KEY=<POSTMAN_API_KEY> -- npx @postman/postman-mcp-server@latest
+claude mcp add --transport http postman https://mcp.postman.com/minimal
 ```
 
 ```bash wordWrap
-claude mcp add postman --env POSTMAN_API_KEY=<POSTMAN_API_KEY> -- npx @postman/postman-mcp-server@latest --code
+claude mcp add --transport http postman https://mcp.postman.com/code
 ```
 
 ```bash wordWrap
-claude mcp add postman --env POSTMAN_API_KEY=<POSTMAN_API_KEY> -- npx @postman/postman-mcp-server@latest --full
+claude mcp add --transport http postman https://mcp.postman.com/mcp
+```
+
+### API key
+
+To use the API key installation method, run one of the following commands in your terminal. If you're using the EU server, you must use the API key installation method. For the EU server, replace `mcp.postman.com` with `mcp.eu.postman.com` in the commands below.
+
+```bash wordWrap
+claude mcp add --transport http postman https://mcp.postman.com/minimal --header "Authorization: Bearer <POSTMAN_API_KEY>"
+```
+
+```bash wordWrap
+claude mcp add --transport http postman https://mcp.postman.com/code --header "Authorization: Bearer <POSTMAN_API_KEY>"
+```
+
+```bash wordWrap
+claude mcp add --transport http postman https://mcp.postman.com/mcp --header "Authorization: Bearer <POSTMAN_API_KEY>"
 ```
 
 ## Cursor
 
-Click the button to install the local Postman MCP server in Cursor:
+Click the button to install the remote Postman MCP server in Cursor:
 
-<a href="https://cursor.com/en/install-mcp?name=postman-api-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyJAcG9zdG1hbi9wb3N0bWFuLW1jcC1zZXJ2ZXIiLCItLWZ1bGwiXSwiZW52Ijp7IlBPU1RNQU5fQVBJX0tFWSI6IllPVVJfQVBJX0tFWSJ9fQ%3D%3D" target="_blank" rel="noopener noreferrer">
-  <img alt="Install the local Postman MCP server in Cursor" src="https://cursor.com/deeplink/mcp-install-dark.svg" width="130px" role="img" />
+<a href="https://cursor.com/en/install-mcp?name=postman_mcp_server&config=eyJ1cmwiOiJodHRwczovL21jcC5wb3N0bWFuLmNvbS9taW5pbWFsIiwiaGVhZGVycyI6eyJBdXRob3JpemF0aW9uIjoiQmVhcmVyIFlPVVJfQVBJX0tFWSJ9fQ%3D%3D" target="_blank" rel="noopener noreferrer">
+  <img alt="Install the remote Postman MCP server" src="https://cursor.com/deeplink/mcp-install-dark.svg" width="130px" role="img" />
 </a>
 
-### Manual installation
+If your MCP host supports OAuth, use the `https://mcp.postman.com/mcp`, `https://mcp.postman.com/minimal`, or `https://mcp.postman.com/code` server URL without headers for the fastest setup. Otherwise, ensure the Authorization header uses the `Bearer <YOUR_API_KEY>` format. Note that OAuth isn't supported for EU servers.
 
-To manually integrate your MCP server with Cursor and VS Code, create a `.vscode/mcp.json` file in your project and add one of the following JSON blocks to it. You can optionally include the `--region` flag to specify the Postman API region (`us` or `eu`). Defaults to `us` (in the `args` array, specify it as `"--region"`, `"eu"`).
+After installing, ensure that the Authorization header uses the `Bearer $POSTMAN-API-KEY` format.
 
-```json wordWrap
-{
-    "servers": {
-        "postman-api-mcp": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "${input:postman-api-key}"
-            }
-        }
-    },
-    "inputs": [
-        {
-            "id": "postman-api-key",
-            "type": "promptString",
-            "description": "Enter your Postman API key"
-        }
-    ]
-}
-```
-
-```json wordWrap
-{
-    "servers": {
-        "postman-api-mcp": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server",
-                "--code"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "${input:postman-api-key}"
-            }
-        }
-    },
-    "inputs": [
-        {
-            "id": "postman-api-key",
-            "type": "promptString",
-            "description": "Enter your Postman API key"
-        }
-    ]
-}
-```
-
-```json wordWrap
-{
-    "servers": {
-        "postman-api-mcp": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server",
-                "--full"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "${input:postman-api-key}"
-            }
-        }
-    },
-    "inputs": [
-        {
-            "id": "postman-api-key",
-            "type": "promptString",
-            "description": "Enter your Postman API key"
-        }
-    ]
-}
-```
+To access **Full** mode, change the `url` value to `https://mcp.postman.com/mcp` in the `mcp.json` file. To access **Code** mode, change the value to `https://mcp.postman.com/code` in this file.
 
 ## Visual Studio Code
 
-Click the button to install the local Postman MCP server in VS Code:
+To install the remote Postman MCP server in VS Code, click the install button or use the [Postman VS Code Extension](/docs/reference/vs-code-extension/postman-mcp-server/):
 
-<a href="https://insiders.vscode.dev/redirect/mcp/install?name=postman-api-mcp&inputs=%5B%7B%22id%22%3A%22postman-api-key%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22Enter%20your%20Postman%20API%20key%22%7D%5D&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22%40postman%2Fpostman-mcp-server%22%2C%22--full%22%5D%2C%22env%22%3A%7B%22POSTMAN_API_KEY%22%3A%22%24%7Binput%3Apostman-api-key%7D%22%7D%7D" target="_blank" rel="noopener noreferrer">
-  <img alt="Install the local Postman MCP server in VS Code" src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white" width="130px" />
+<a href="https://insiders.vscode.dev/redirect/mcp/install?name=postman_mcp_server&config=%7B%22type%22%3A%20%22http%22%2C%22url%22%3A%20%22https%3A%2F%2Fmcp.postman.com%2Fminimal%22%2C%22headers%22%3A%7B%22Authorization%22%3A%22Bearer%20YOUR_API_KEY%22%7D%7D" target="_blank" rel="noopener noreferrer">
+  <img alt="Install the remote Postman MCP server in VS Code" src="https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white" width="130px" />
 </a>
 
-### Manual configuration
+To access **Full** mode, change the `url` value to `https://mcp.postman.com/mcp` in the `mcp.json` file. To access **Code** mode, change the value to `https://mcp.postman.com/code` in this file.
 
-You can manually integrate your MCP server with VS Code to use it with extensions that support MCP. Add the optional `--region` flag to specify the Postman API region (`us` or `eu`). Defaults to `us` (in the `args` array, specify it as `"--region"`, `"eu"`).
+### Manual installation
 
-To create a manual configuration, create a `mcp.json` file in your project and add one of the following JSON blocks to it:
+You can use the Postman MCP server with MCP-compatible extensions in VS Code, such as GitHub Copilot, Claude for VS Code, or other AI assistants that support MCP. To do this, add the following JSON block to the `.vscode/mcp.json` configuration file:
+
+#### OAuth
+
+Add one of the following JSON blocks to use the recommended OAuth installation method:
 
 ```json wordWrap
 {
     "servers": {
         "postman": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "${input:postman-api-key}"
+            "type": "http",
+            "url": "https://mcp.postman.com/minimal"
+        }
+    }
+}
+```
+
+```json wordWrap
+{
+    "servers": {
+        "postman": {
+            "type": "http",
+            "url": "https://mcp.postman.com/code"
+        }
+    }
+}
+```
+
+```json wordWrap
+{
+    "servers": {
+        "postman": {
+            "type": "http",
+            "url": "https://mcp.postman.com/mcp"
+        }
+    }
+}
+```
+
+Start the server. When prompted, complete the OAuth sign-in flow.
+
+#### API key
+
+Use one of the following JSON blocks to use the desired API key installation method:
+
+```json wordWrap
+{
+    "servers": {
+        "postman": {
+            "type": "http",
+            "url": "https://mcp.postman.com/minimal",
+            "headers": {
+                "Authorization": "Bearer ${input:postman-api-key}"
             }
         }
     },
@@ -162,14 +156,10 @@ To create a manual configuration, create a `mcp.json` file in your project and a
 {
     "servers": {
         "postman": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server",
-                "--code"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "${input:postman-api-key}"
+            "type": "http",
+            "url": "https://mcp.postman.com/code",
+            "headers": {
+                "Authorization": "Bearer ${input:postman-api-key}"
             }
         }
     },
@@ -187,14 +177,10 @@ To create a manual configuration, create a `mcp.json` file in your project and a
 {
     "servers": {
         "postman": {
-            "type": "stdio",
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server",
-                "--full"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "${input:postman-api-key}"
+            "type": "http",
+            "url": "https://mcp.postman.com/mcp",
+            "headers": {
+                "Authorization": "Bearer ${input:postman-api-key}"
             }
         }
     },
@@ -208,19 +194,31 @@ To create a manual configuration, create a `mcp.json` file in your project and a
 }
 ```
 
-## Claude
-
-To integrate the local Postman MCP server with Claude, check the [latest Postman MCP server release](https://github.com/postmanlabs/postman-mcp-server/releases) and get the `.mcpb` file:
-
-* **Minimal** — `postman-api-mcp-minimal.mcpb`
-* **Code** — `postman-mcp-server-code.mcpb`
-* **Full** — `postman-api-mcp-full.mcpb`
-
-For more information, see the [Claude Desktop Extensions](https://www.anthropic.com/engineering/desktop-extensions) documentation.
+Start the server. When prompted, enter your Postman API key.
 
 ## Codex
 
-To install the local server, use the API key installation method. Set the `POSTMAN_API_KEY` environment variable and invoke the MCP server using `npx`.
+To install the remote server in Codex, use one of the following methods, depending on your authentication and region.
+
+### OAuth
+
+Use this method with the US server for the best installation experience. OAuth requires no manual API key setup.
+
+```bash wordWrap
+codex mcp add postman --remote-url https://mcp.postman.com/minimal
+```
+
+```bash wordWrap
+codex mcp add postman --remote-url https://mcp.postman.com/code
+```
+
+```bash wordWrap
+codex mcp add postman --remote-url https://mcp.postman.com/mcp
+```
+
+### API key
+
+If you're using the EU server (`mcp.eu.postman.com`), a local server, or prefer API key authentication, use the API key method. Set the `POSTMAN_API_KEY` environment variable and invoke the MCP server using `npx`.
 
 ```bash wordWrap
 codex mcp add postman --env POSTMAN_API_KEY=<POSTMAN_API_KEY> -- npx @postman/postman-mcp-server
@@ -234,93 +232,52 @@ codex mcp add postman --env POSTMAN_API_KEY=<POSTMAN_API_KEY> -- npx @postman/po
 codex mcp add postman --env POSTMAN_API_KEY=<POSTMAN_API_KEY> -- npx @postman/postman-mcp-server --full
 ```
 
-## Windsurf
-
-To install the MCP server in Windsurf, do the following:
-
-1. Click **Open MCP Marketplace** in Windsurf.
-2. Enter "Postman" in the search text box to filter the marketplace results.
-3. Click **Install**.
-4. When prompted, enter a valid Postman API key.
-5. Select the tools that you want to enable, or click **All Tools** to select all available tools.
-6. Turn on **Enabled** to enable the Postman MCP server.
-
-Windows users on Windsurf can encounter a startup timeout because too many startup logs fill the stderr buffer, which blocks the server before MCP initialization completes. Using the `--quiet` configuration suppresses those logs and avoids the issue.
-
 ### Manual installation
 
-Copy the following JSON config into the `.codeium/windsurf/mcp_config.json` file (to use `--quiet` with Code or Full, include it alongside `--code` or `--full` in the `args` array).
+To manually install the MCP server in Codex, create a `~/.codex/config.toml` config file, then copy the following config into the file:
 
-```json wordWrap
-{
-    "mcpServers": {
-        "postman": {
-            "args": [
-                "@postman/postman-mcp-server"
-            ],
-            "command": "npx",
-            "disabled": false,
-            "disabledTools": [],
-            "env": {
-                "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-            }
-        }
-    }
-}
+```bash wordWrap
+[mcp_servers.postman-mcp-server]
+command = "npx"
+args = ["-y", "@postman/postman-mcp-server"]
+
+[mcp_servers.postman-mcp-server.env]
+POSTMAN_API_KEY="XXX"
 ```
 
-```json wordWrap
-{
-    "mcpServers": {
-        "postman": {
-            "args": [
-                "@postman/postman-mcp-server",
-                "--code"
-            ],
-            "command": "npx",
-            "disabled": false,
-            "disabledTools": [],
-            "env": {
-                "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-            }
-        }
-    }
-}
-```
+## Windsurf
+
+To install the MCP server in Windsurf, copy the following JSON config into the `.codeium/windsurf/mcp_config.json` file. This configuration uses the remote server, which automatically authenticates with OAuth.
 
 ```json wordWrap
 {
     "mcpServers": {
-        "postman": {
+        "postman-full": {
             "args": [
-                "@postman/postman-mcp-server",
-                "--full"
+                "mcp-remote",
+                "https://mcp.postman.com/mcp"
             ],
-            "command": "npx",
             "disabled": false,
             "disabledTools": [],
-            "env": {
-                "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-            }
-        }
-    }
-}
-```
-
-```json wordWrap
-{
-    "mcpServers": {
-        "postman": {
+            "env": {}
+        },
+        "postman-code": {
             "args": [
-                "@postman/postman-mcp-server",
-                "--quiet"
+                "mcp-remote",
+                "https://mcp.postman.com/code"
             ],
-            "command": "npx",
             "disabled": false,
             "disabledTools": [],
-            "env": {
-                "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-            }
+            "env": {}
+        },
+        "postman-minimal": {
+            "args": [
+                "mcp-remote",
+                "https://mcp.postman.com/minimal"
+            ],
+            "disabled": false,
+            "disabledTools": [],
+            "env": {}
         }
     }
 }
@@ -328,21 +285,37 @@ Copy the following JSON config into the `.codeium/windsurf/mcp_config.json` file
 
 ## Antigravity
 
-To install the MCP server in Antigravity, click **Manage MCP servers > View raw config**. Then, copy the following JSON config into the `mcp_config.json` file:
+To install the MCP server in Antigravity, click **Manage MCP servers > View raw config**. Then, copy the following JSON config into the `.mcp_config.json` file. This configuration uses the remote server, which automatically authenticates with OAuth.
 
 ```json wordWrap
 {
     "mcpServers": {
-        "postman": {
+        "postman-full": {
             "args": [
-                "@postman/postman-mcp-server"
+                "mcp-remote",
+                "https://mcp.postman.com/mcp"
             ],
-            "command": "npx",
             "disabled": false,
             "disabledTools": [],
-            "env": {
-                "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-            }
+            "env": {}
+        },
+        "postman-code": {
+            "args": [
+                "mcp-remote",
+                "https://mcp.postman.com/code"
+            ],
+            "disabled": false,
+            "disabledTools": [],
+            "env": {}
+        },
+        "postman-minimal": {
+            "args": [
+                "mcp-remote",
+                "https://mcp.postman.com/minimal"
+            ],
+            "disabled": false,
+            "disabledTools": [],
+            "env": {}
         }
     }
 }
@@ -350,11 +323,15 @@ To install the MCP server in Antigravity, click **Manage MCP servers > View raw 
 
 ## GitHub Copilot CLI
 
+You can add the MCP server to your Copilot CLI either with OAuth (recommended) or an API key.
+
 Use the Copilot CLI to interactively add the MCP server:
 
 ```bash wordWrap
 /mcp add
 ```
+
+For more information, see the [Copilot CLI documentation](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli).
 
 ### Manual installation
 
@@ -364,13 +341,8 @@ Copy the following JSON config into the `~/.copilot/mcp-config.json` file:
 {
     "mcpServers": {
         "postman": {
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-            }
+            "type": "http",
+            "url": "https://mcp.postman.com/minimal"
         }
     }
 }
@@ -380,14 +352,8 @@ Copy the following JSON config into the `~/.copilot/mcp-config.json` file:
 {
     "mcpServers": {
         "postman": {
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server",
-                "--code"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-            }
+            "type": "http",
+            "url": "https://mcp.postman.com/code"
         }
     }
 }
@@ -397,97 +363,108 @@ Copy the following JSON config into the `~/.copilot/mcp-config.json` file:
 {
     "mcpServers": {
         "postman": {
-            "command": "npx",
-            "args": [
-                "@postman/postman-mcp-server",
-                "--full"
-            ],
-            "env": {
-                "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-            }
+            "type": "http",
+            "url": "https://mcp.postman.com/mcp"
         }
     }
+}
+```
+
+#### API key
+
+Use the following method to install if API key authentication is required for EU servers:
+
+```json wordWrap
+{
+    "mcpServers": {
+        "postman": {
+            "type": "http",
+            "url": "https://mcp.eu.postman.com/minimal",
+            "headers": {
+                "Authorization": "Bearer ${input:postman-api-key}"
+            }
+        }
+    },
+    "inputs": [
+        {
+            "id": "postman-api-key",
+            "type": "promptString",
+            "description": "Enter your Postman API key"
+        }
+    ]
+}
+```
+
+```json wordWrap
+{
+    "mcpServers": {
+        "postman": {
+            "type": "http",
+            "url": "https://mcp.eu.postman.com/code",
+            "headers": {
+                "Authorization": "Bearer ${input:postman-api-key}"
+            }
+        }
+    },
+    "inputs": [
+        {
+            "id": "postman-api-key",
+            "type": "promptString",
+            "description": "Enter your Postman API key"
+        }
+    ]
+}
+```
+
+```json wordWrap
+{
+    "mcpServers": {
+        "postman": {
+            "type": "http",
+            "url": "https://mcp.eu.postman.com/mcp",
+            "headers": {
+                "Authorization": "Bearer ${input:postman-api-key}"
+            }
+        }
+    },
+    "inputs": [
+        {
+            "id": "postman-api-key",
+            "type": "promptString",
+            "description": "Enter your Postman API key"
+        }
+    ]
 }
 ```
 
 ## Gemini CLI
 
-To install the MCP server directly in the Gemini CLI, run one of the following commands in your terminal.
+To add the MCP server to your Gemini CLI, run one of the following commands in your terminal:
 
 ```bash wordWrap
-gemini mcp add postman npx -- -y @postman/postman-mcp-server --env POSTMAN_API_KEY=<POSTMAN_API_KEY>
+gemini mcp add postman https://mcp.postman.com/minimal --transport http
 ```
 
 ```bash wordWrap
-gemini mcp add postman npx -- -y @postman/postman-mcp-server --code --env POSTMAN_API_KEY=<POSTMAN_API_KEY>
+gemini mcp add postman https://mcp.postman.com/code --transport http
 ```
 
 ```bash wordWrap
-gemini mcp add postman npx -- -y @postman/postman-mcp-server --full --env POSTMAN_API_KEY=<POSTMAN_API_KEY>
-```
-
-## Gemini CLI extension
-
-To install the MCP server as a Gemini CLI extension, run the following command in your terminal:
-
-```bash wordWrap
-gemini extensions install https://github.com/postmanlabs/postman-mcp-server
+gemini mcp add postman https://mcp.postman.com/mcp --transport http
 ```
 
 ## Kiro
 
-To install the local Postman MCP Server in Kiro, click the install button for the version that you want to use:
+To install the remote Postman MCP Server in Kiro, click the install button for the version that you want to use:
 
-| **Minimal**                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | **Code**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | **Full**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <a href="https://kiro.dev/launch/mcp/add?name=postman-mcp-server&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40postman%2Fpostman-mcp-server%40latest%22%5D%2C%22env%22%3A%7B%22POSTMAN_API_KEY%22%3A%22%24%7BPOSTMAN_API_KEY%7D%22%7D%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D" target="_blank" rel="noopener noreferrer"> <img alt="Add Postman MCP Minimal server to Kiro" src="https://kiro.dev/images/add-to-kiro.svg" align="left" /></a> | <a href="https://kiro.dev/launch/mcp/add?name=postman-mcp-server&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40postman%2Fpostman-mcp-server%40latest%22%2C%22--code%22%5D%2C%22env%22%3A%7B%22POSTMAN_API_KEY%22%3A%22%24%7BPOSTMAN_API_KEY%7D%22%7D%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D" target="_blank" rel="noopener noreferrer"> <img alt="Add Postman MCP Code server to Kiro" src="https://kiro.dev/images/add-to-kiro.svg" align="left" /></a> | <a href="https://kiro.dev/launch/mcp/add?name=postman-mcp-server&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40postman%2Fpostman-mcp-server%40latest%22%2C%22--full%22%5D%2C%22env%22%3A%7B%22POSTMAN_API_KEY%22%3A%22%24%7BPOSTMAN_API_KEY%7D%22%7D%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D" target="_blank" rel="noopener noreferrer"> <img alt="Add Postman MCP Full server to Kiro" src="https://kiro.dev/images/add-to-kiro.svg" align="left" /></a> |
+| **Minimal**                                                                                                                                                                                                                                                                                    | **Code**                                                                                                                                                                                                                                                                                 | **Full**                                                                                                                                                                                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [![Add Postman MCP Minimal server to Kiro](https://kiro.dev/images/add-to-kiro.svg)](https%3A%2F%2Fkiro.dev%2Flaunch%2Fmcp%2Fadd%3Fname%3Dpostman-mcp-server%26config%3D%7B%22url%22%3A%22https%3A%2F%2Fmcp.postman.com%2Fminimal%22%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D) | [![Add Postman MCP Code server to Kiro](https://kiro.dev/images/add-to-kiro.svg)](https%3A%2F%2Fkiro.dev%2Flaunch%2Fmcp%2Fadd%3Fname%3Dpostman-mcp-server%26config%3D%7B%22url%22%3A%22https%3A%2F%2Fmcp.postman.com%2Fcode%22%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D) | [![Add Postman MCP Full server to Kiro](https://kiro.dev/images/add-to-kiro.svg)](https%3A%2F%2Fkiro.dev%2Flaunch%2Fmcp%2Fadd%3Fname%3Dpostman-mcp-server%26config%3D%7B%22url%22%3A%22https%3A%2F%2Fmcp.postman.com%2Fmcp%22%2C%22disabled%22%3Afalse%2C%22autoApprove%22%3A%5B%5D%7D) |
 
-To install the Postman MCP server with Kiro powers, go to [Kiro Powers](https://kiro.dev/powers/) and navigate to **API Testing with Postman** in the **Browse powers** section. Then, click **Add to Kiro**.
+## Verify your connection
 
-### Manual installation
+After installing, restart or reload your MCP host so it picks up the new server. To confirm the connection works, check that your host lists the Postman server and its tools, then ask your agent to perform a simple read-only action, such as "List my Postman workspaces." If it returns your workspaces, you're connected.
 
-To install the Postman MCP Server manually, do the following:
+## Next steps
 
-1. Launch Kiro and click the Kiro ghost icon in the left sidebar.
-2. Add an MCP Server and select either **User Config** or **Workspace Config** to install the Postman MCP server.
-3. Add the following JSON block to the `mcp.json` configuration file:
-
-   ```json wordWrap
-   {
-       "mcpServers": {
-           "postman": {
-           "command": "npx",
-               "args": [
-                   "@postman/postman-mcp-server"
-               ],
-               "env": {
-                   "POSTMAN_API_KEY": "<POSTMAN_API_KEY>"
-               },
-               "disabled": false,
-               "autoApprove": []
-           }
-       }
-   }
-   ```
-
-## Docker
-
-To install the Postman MCP server in Docker, see the [Postman MCP server](https://hub.docker.com/mcp/server/postman/overview) at Docker MCP Hub. Click **+ Add to Docker Desktop** to automatically install it.
-
-To run the Postman MCP server image in Docker, run the following command in your terminal. Docker automatically discovers, downloads, and runs the Postman MCP server image:
-
-```bash wordWrap
-docker run -i -e POSTMAN_API_KEY="<POSTMAN_API_KEY>" mcp/postman
-```
-
-### Manual installation
-
-To build and run the server in Docker manually, run the `docker build -t postman-api-mcp-stdio .` command. Then, run one of the following commands:
-
-```bash wordWrap
-docker run -i -e POSTMAN_API_KEY="<POSTMAN_API_KEY>" postman-api-mcp-stdio
-```
-
-```bash wordWrap
-docker run -i -e POSTMAN_API_KEY="<POSTMAN_API_KEY>" postman-api-mcp-stdio --full
-```
+For best practices and tips for getting the most out of the server, see **Get the most out of the Postman MCP server**.
